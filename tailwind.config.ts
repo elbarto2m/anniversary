@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss"
+import defaultConfig from "tailwindcss/defaultConfig"
 
 const config: Config = {
   ...defaultConfig,
@@ -12,7 +13,6 @@ const config: Config = {
   theme: {
     ...defaultConfig.theme,
     extend: {
-      ...defaultConfig.theme.extend.colors,
       colors: {
         pink: {
           50: "#fdf2f8",
@@ -39,9 +39,29 @@ const config: Config = {
           900: "#881337",
         },
       },
+      keyframes: {
+        float: {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-10px)" },
+        },
+        shimmer: {
+          "0%": { backgroundPosition: "-700px 0" },
+          "100%": { backgroundPosition: "700px 0" },
+        },
+        fall: {
+          "0%": { transform: "translateY(-100%)", opacity: "0" },
+          "100%": { transform: "translateY(100vh)", opacity: "1" },
+        },
+        swirl: {
+          "0%": { transform: "rotate(0deg) translateX(0)" },
+          "100%": { transform: "rotate(360deg) translateX(10px)" },
+        },
+      },
       animation: {
         float: "float 6s ease-in-out infinite",
         shimmer: "shimmer 2s infinite",
+        fall: "fall 5s linear infinite",
+        swirl: "swirl 6s ease-in-out infinite",
       },
       backdropBlur: {
         xs: "2px",
@@ -53,7 +73,7 @@ const config: Config = {
       },
     },
   },
-  plugins: [...defaultConfig.plugins, require("tailwindcss-animate")],
+  plugins: [...(defaultConfig.plugins || []), require("tailwindcss-animate")],
 }
 
 export default config
